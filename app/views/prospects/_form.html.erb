@@ -1,0 +1,109 @@
+ <%= form_for(@prospect, remote: true) do |f| %>
+
+    <div class="form-group">
+        <label>Full Name : </label><br/>
+        <%= f.text_field :full_name, autofocus: true, class: "form-control" %> <br/>
+        <span id="fullNameError"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Email : </label> <br/>
+        <%= f.email_field :email, class: "form-control" %> <br/>
+        <span id="emailError"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Mobile : </label> <br/>
+        <%= f.text_field :phone, class: "form-control" %> <br/>
+        <span id="mobileError"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Location : </label> <br/>
+        <%= f.text_field :location, class: "form-control" %> <br/>
+        <span id="locationError"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Stage : </label> <br/>
+        <%= f.collection_select :stage_id, Stage.all, :id, :name, prompt: "Select Stage", class: "form-control" %> <br/>
+    </div>
+
+    <%= f.submit %> or <%= link_to "Back", prospects_path %>
+<% end %>
+
+<script>
+  var alphabetFormatter = /^[A-Za-z]+$/;
+  var emailFormatter = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+  var mobileFormatter = /^[0-9]+$/;
+  var formHandle = document.getElementById('new_prospect');
+  var fullNameHandle = document.getElementById('prospect_full_name');
+  var emailHandle = document.getElementById('prospect_email');
+  var mobileHandle = document.getElementById('prospect_phone');
+  var locationHandle = document.getElementById('prospect_location');
+  var fullNameErrorHandle = document.getElementById('fullNameError');
+  var emailErrorHandle = document.getElementById('emailError');
+  var mobileErrorHandle = document.getElementById('mobileError');
+  var locationErrorHandle = document.getElementById('locationError');
+  
+  validate = {
+    "full_name": false,
+    "email": false,
+    "mobile": false,
+    "location": false
+  }
+  function validateFullName(){
+    if (fullNameHandle.value == "") {
+      fullNameErrorHandle.innerHTML = "Can't be blank";
+      validate.full_name = false;
+    } else if (!alphabetFormatter.test(fullNameHandle.value)) {
+      fullNameErrorHandle.innerHTML = "Should be a valid format";
+      validate.full_name = false;
+    }else {
+      validate.full_name = true;
+    }
+  }
+   function validateMobile() {
+    if (mobileHandle.value == "") {
+      mobileErrorHandle.innerHTML = "Can't be blank";
+      validate.mobile = false;
+    }else if (!mobileFormatter.test(mobileHandle.value)) {
+      mobileErrorHandle.innerHTML = "Should be a valid format";
+      validate.mobile = false;
+    }else {
+      validate.mobile = true;
+    }
+  }
+  function validateEmail(){
+    if (emailHandle.value == "") {
+      emailErrorHandle.innerHTML = "Can't be blank";
+      validate.email = false;
+    } else if (!emailFormatter.test(emailHandle.value)) {
+      emailErrorHandle.innerHTML = "Should be a valid format";
+      validate.email = false;
+    }else {
+      validate.email = true;
+    }
+  }
+ 
+  function validateLocation() {
+    if (locationHandle.value == "") {
+        locationErrorHandle.innerHTML = "Can't be blank";
+        validate.location = false;
+    }else if (!alphabetFormatter.test(locationHandle.value)) {
+        locationErrorHandle.innerHTML = "Should be a valid format";
+        validate.location = false;
+    } else {
+        validate.location = true;
+    }
+  }
+  formHandle.addEventListener('submit', function(e){
+    validateFullName();
+    validateMobile();
+    validateEmail();
+    validateLocation();
+    if (Object.values(validate).includes(false)) {
+      e.preventDefault();
+    }
+  }, false);
+</script>

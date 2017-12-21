@@ -1,0 +1,7 @@
+<h2>Listing Customers</h2>
+<% @customers.each do |customer| %>
+  NAME-<%= customer.full_name %><br/>
+  EMAIL-<%= customer.email %><br/>
+  PHONE-<%= customer.phone %><br/>
+  LOCATION-<%= customer.location %><br/>
+<% end %>

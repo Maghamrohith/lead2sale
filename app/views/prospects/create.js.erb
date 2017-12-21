@@ -1,0 +1,9 @@
+<% if @prospect.errors.any? %>
+$('#errors').html("<%= escape_javascript render 'errors' %>")
+
+<% else %>
+  $('#AddProspect').append("<%= escape_javascript render 'prospects' %>");
+  $('#new_prospect')[0].reset();
+  $('#notice').text("prospect successfully added");
+  $('#errors').hide();
+<% end %>

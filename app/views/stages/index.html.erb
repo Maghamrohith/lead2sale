@@ -1,0 +1,14 @@
+<h2>Listing Stages</h2>
+<% if @stages.empty? %>
+   <h2> No stages found </h2>
+<%else%>
+    <% @stages.each do |stage| %>
+     Name-<%=stage.name%><br/>
+     Description-<%=stage.description%><br/>
+     Interestlevel-<%= stage.interest_level %><br/>
+    <%end%>
+<%end%> 
+<% if can? :create, Stage.new %>
+  <%= render'form' %>
+<%end%>
+

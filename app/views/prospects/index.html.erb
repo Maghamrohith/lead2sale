@@ -1,0 +1,39 @@
+<div class="row">
+	<div class="col-md-7">
+		<div class="page-header">
+		  <h2>Listing Prospects</h2>		
+		</div>
+			<table class='table', id="AddProspect">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Mobile</th>
+					<th>Location</th>
+					<th>Stage</th>
+				</tr>
+				
+			</thead>
+			<tbody>
+				<% @prospects.each do |prospect| %>
+					<tr>
+						<td><%= link_to prospect.full_name, prospect_path(prospect.id) %></td>
+						<td><%= prospect.email %></td>
+						<td><%= prospect.phone %></td>
+						<td><%= prospect.location %></td>
+						<td><%= prospect.stage.name %></td>
+					</tr>
+				<% end %>	
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-5">
+		<div class="page-header">
+			<h2>Add Prospect</h2>
+		</div>
+		<% if can? :create, Prospect.new %>
+		    <div id ="errors"></div>
+		  	<%= render'form' %>
+		<%end%>	
+	</div>
+</div>

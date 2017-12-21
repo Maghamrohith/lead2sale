@@ -1,0 +1,7 @@
+ <h2>Prospect Details</h2>
+Name-<%=@prospect.full_name%><%=link_to "edit",edit_prospect_path(@prospect.id) %><br/>
+Email-<%=@prospect.email%><br/>
+Phone-<%=@prospect.phone%><br/>
+Location-<%=@prospect.location%><br/>
+Stage-<%=@prospect.stage.name%><br/>	
+<%=link_to "Edit",edit_prospect_path(@prospect) %>| <%=link_to "Delete",prospect_path(@prospect), method: :delete %>
